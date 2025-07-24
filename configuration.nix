@@ -12,7 +12,7 @@
 
   # -------- Home‑Manager users --------
   home-manager.users.nixos.imports =
-    [ ./modules/home/common.nix ]                                 # fish, starship, direnv
+    [ ./modules/home/common.nix ./cachix.nix]                                 # fish, starship, direnv
     ++ lib.optional config.wsl.enable ./modules/home/wsl.nix;     # WezTerm tweak only in WSL
 
   # WSL basics

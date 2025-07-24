@@ -7,9 +7,26 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
 
-  outputs = inputs@{ self, nixpkgs, nixos-wsl, home-manager, ... }: {
+  outputs = inputs@{ self, nixpkgs, nixos-wsl, home-manager, ... }: 
+  let
+	system = "x86_64-linux";
+  in {
+
+    devShells.${system}.dev = nixpkgs.mkShell {
+	packages = with nixpkgs; [
+		deadnix
+		statix
+		nixpkgs-fmt
+		pre-commit
+		just
+	      ];
+	shellHook = ''
+		echo "🔧Dev shell ready. Run ./scripts/ci.sh"
+		'';
+	};
+
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+      system = system
 
       # expose every flake to *all* NixOS modules & home‑manager
       specialArgs = { inherit inputs; };

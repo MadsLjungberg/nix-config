@@ -15,8 +15,6 @@
       inherit (nixpkgs) lib;
     in
     {
-      # ---- Make sure `nix fmt`works ----
-      formatter.${system} = pkgs.nixpkgs-fmt;
 
       # ---- Dev shell you can enter with: nix develop .#dev ----
       devShells.${system}.dev = pkgs.mkShell {

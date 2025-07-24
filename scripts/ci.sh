@@ -1,5 +1,3 @@
-mkdir -p scripts
-cat > scripts/ci.sh <<'EOF'
 #!/usr/bin/env bash
 set -euo pipefail
 

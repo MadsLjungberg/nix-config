@@ -1,0 +1,27 @@
+repos:
+  - repo: local
+    hooks:
+      # 1) Format all .nix files
+      - id: nixpkgs-fmt
+        name: nixpkgs-fmt
+        language: system
+        entry: nixpkgs-fmt
+        types: [nix]
+        pass_filenames: true
+
+      # 2) Fail on dead code (same as CI's `deadnix -f`)
+      - id: deadnix
+        name: deadnix
+        language: system
+        entry: deadnix --fail .
+        types: [nix]
+        pass_filenames: false
+
+      # 3) Lint with statix (no auto-fix, matches CI's `statix check`)
+      - id: statix
+        name: statix
+        language: system
+        entry: statix check .
+        types: [nix]
+        pass_filenames: false
+
